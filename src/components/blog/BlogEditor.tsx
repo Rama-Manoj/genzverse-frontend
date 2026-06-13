@@ -100,20 +100,55 @@ export const BlogEditor: React.FC<BlogEditorProps> = ({
     }
   };
 
+  const addTagsFromString = (str: string) => {
+    const tagsToAdd = str
+      .split(/[\s,]+/)
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
+
+    if (tagsToAdd.length === 0) return;
+
+    const currentTags = formValues.tags || [];
+    const newTags = [...currentTags];
+    let duplicateFound = false;
+    let addedAny = false;
+
+    tagsToAdd.forEach((tag) => {
+      if (newTags.includes(tag)) {
+        duplicateFound = true;
+      } else {
+        newTags.push(tag);
+        addedAny = true;
+      }
+    });
+
+    if (addedAny) {
+      setValue('tags', newTags, { shouldValidate: true });
+    }
+    if (duplicateFound) {
+      toast.warning('Duplicate tags ignored.');
+    }
+    setTagInput('');
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val.endsWith(' ') || val.endsWith(',')) {
+      addTagsFromString(val);
+    } else {
+      setTagInput(val);
+    }
+  };
+
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
-      const cleaned = tagInput.trim().replace(/,/g, '');
-      if (cleaned) {
-        const currentTags = formValues.tags || [];
-        if (currentTags.includes(cleaned)) {
-          toast.warning('Tag already added!');
-          return;
-        }
-        setValue('tags', [...currentTags, cleaned], { shouldValidate: true });
-        setTagInput('');
-      }
+      addTagsFromString(tagInput);
     }
+  };
+
+  const handleBlur = () => {
+    addTagsFromString(tagInput);
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
@@ -325,8 +360,9 @@ export const BlogEditor: React.FC<BlogEditorProps> = ({
                       type="text"
                       placeholder="Add tag and press Enter..."
                       value={tagInput}
-                      onChange={(e) => setTagInput(e.target.value)}
+                      onChange={handleInputChange}
                       onKeyDown={handleAddTag}
+                      onBlur={handleBlur}
                       disabled={isSubmitting}
                       className="w-full h-8 px-2 bg-transparent text-xs focus:outline-none border-0"
                     />
@@ -335,7 +371,7 @@ export const BlogEditor: React.FC<BlogEditorProps> = ({
                 </div>
 
                 <p className="text-[10px] text-slate-400 leading-normal">
-                  Type a keyword and press **Enter** or **, (comma)** to add.
+                  Type a keyword and press **Space**, **Enter**, **, (comma)**, or click away to add.
                 </p>
                 {errors.tags && (
                   <p className="text-[11px] font-semibold text-rose-500">{errors.tags.message}</p>

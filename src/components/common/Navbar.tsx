@@ -33,9 +33,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
           
           <MotionLink 
             to={ROUTES.HOME} 
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex items-center gap-2 font-black text-2xl tracking-tight bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="flex items-center gap-2 font-black text-2xl tracking-tight bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent rounded-xl px-2.5 py-1.5 -mx-2.5 -my-1.5 hover:bg-slate-100/50 dark:hover:bg-slate-900/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/35 dark:focus-visible:ring-purple-400/35 transition-all duration-200"
           >
             <BookOpen className="h-6 w-6 text-purple-500 drop-shadow-[0_0_8px_rgba(168,85,247,0.4)]" />
             <span>GenzVerse</span>
@@ -44,20 +44,20 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobileMenu }) => {
 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-5 ml-6">
-          <Link to={ROUTES.EXPLORE} className="text-xs font-black uppercase tracking-wider text-slate-550 hover:text-indigo-500 dark:text-slate-400 dark:hover:text-pink-450 transition-colors">
+          <Link to={ROUTES.EXPLORE} className="text-xs font-black uppercase tracking-wider text-slate-550 hover:text-indigo-500 dark:text-slate-400 dark:hover:text-pink-450 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all">
             Explore
           </Link>
-          <Link to={ROUTES.TRENDING} className="text-xs font-black uppercase tracking-wider text-slate-550 hover:text-indigo-500 dark:text-slate-400 dark:hover:text-pink-450 transition-colors">
+          <Link to={ROUTES.TRENDING} className="text-xs font-black uppercase tracking-wider text-slate-550 hover:text-indigo-500 dark:text-slate-400 dark:hover:text-pink-450 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all">
             Trending
           </Link>
           <span className="w-px h-4 bg-slate-200 dark:bg-slate-800" />
-          <Link to={ROUTES.ABOUT} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 transition-colors">
+          <Link to={ROUTES.ABOUT} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all">
             About
           </Link>
-          <Link to={ROUTES.CONTACT} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 transition-colors">
+          <Link to={ROUTES.CONTACT} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all">
             Contact
           </Link>
-          <Link to={ROUTES.FAQ} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 transition-colors">
+          <Link to={ROUTES.FAQ} className="text-xs font-bold uppercase tracking-wider text-slate-450 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-pink-450 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 rounded-lg px-2 py-1 -mx-2 -my-1 transition-all">
             FAQ
           </Link>
         </nav>

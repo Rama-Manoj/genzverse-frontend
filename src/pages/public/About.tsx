@@ -131,7 +131,7 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-16 py-8 px-4 sm:px-0">
+    <div className="max-w-5xl mx-auto space-y-16 pt-0 pb-12 px-4 sm:px-0">
 
       {/* ═══════════════════════════════════════════════════════════ */}
       {/* HERO SECTION                                                */}
@@ -365,7 +365,7 @@ export const About: React.FC = () => {
         >
           {/* Gradient header strip */}
           <div 
-            className="h-36 sm:h-48 bg-slate-900 relative bg-cover bg-center bg-no-repeat"
+            className="h-56 sm:h-80 lg:h-96 bg-slate-900 relative bg-cover bg-[center_10%] bg-no-repeat"
             style={{ backgroundImage: `url(${creatorBanner})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/10" />
@@ -387,31 +387,31 @@ export const About: React.FC = () => {
                   Java Full Stack Developer
                 </p>
               </div>
-              <div className="flex gap-2 pb-1">
+              <div className="flex gap-2.5 pb-1">
                 <a
                   href="mailto:ramamanoj2003@gmail.com"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-600 transition-all"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-purple-100 dark:hover:bg-purple-900/40 hover:text-purple-600 transition-all"
                   title="Email"
                 >
-                  <Mail className="h-4 w-4" />
+                  <Mail className="h-5.5 w-5.5" />
                 </a>
                 <a
                   href="https://linkedin.com/in/rama-manoj-2b1012293"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 hover:text-blue-600 transition-all"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 hover:text-blue-600 transition-all"
                   title="LinkedIn"
                 >
-                  <Linkedin className="h-4 w-4" />
+                  <Linkedin className="h-5.5 w-5.5" />
                 </a>
                 <a
                   href="https://github.com/Rama-Manoj"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition-all"
+                  className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-slate-800 dark:hover:text-white transition-all"
                   title="GitHub"
                 >
-                  <Github className="h-4 w-4" />
+                  <Github className="h-5.5 w-5.5" />
                 </a>
               </div>
             </div>
@@ -419,7 +419,7 @@ export const About: React.FC = () => {
             {/* Bio */}
             <div className="mt-5 space-y-2">
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Java Full Stack Developer (Fresher) skilled in Java, Servlets, JSP, Spring,
+                Java Full Stack Developer skilled in Java, Servlets, JSP, Spring, Spring Boot,
                 Hibernate, JDBC, and MySQL. Built 5+ projects including an AI-powered web
                 application with real-time interaction and cloud deployment. Strong in REST
                 APIs, MVC architecture, and database-driven applications.

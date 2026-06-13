@@ -90,7 +90,11 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({ isOpen, onCl
           >
             <div className="flex flex-col h-full overflow-hidden">
               <div className="flex items-center justify-between mb-6 shrink-0">
-                <Link to={ROUTES.HOME} className="flex items-center gap-2 font-black text-xl" onClick={onClose}>
+                <Link 
+                  to={ROUTES.HOME} 
+                  className="flex items-center gap-2 font-black text-xl rounded-xl px-2.5 py-1.5 -mx-2.5 -my-1.5 hover:bg-slate-100/50 dark:hover:bg-slate-850/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/35 transition-all duration-200" 
+                  onClick={onClose}
+                >
                   <BookOpen className="h-5.5 w-5.5 text-indigo-500" />
                   <span className="bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent">GenzVerse</span>
                 </Link>
