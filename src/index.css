@@ -1,0 +1,836 @@
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Premium custom scrollbar styling (Developer Theme) ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 58, 237, 0.2);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 58, 237, 0.45);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 58, 237, 0.2) transparent;
+}
+
+/* Tailwind utility class for scrollbar-none */
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* Glassmorphism Panel styles */
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(124, 58, 237, 0.12);
+    box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.04);
+  }
+
+  .dark .glass-panel {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* Glassmorphism Card styles */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(124, 58, 237, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(124, 58, 237, 0.04);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .dark .glass-card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(124, 58, 237, 0.25);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(124, 58, 237, 0.15);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .dark .glass-card-hover:hover {
+    background: rgba(21, 28, 47, 0.85);
+    border-color: rgba(6, 182, 212, 0.35);
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(124, 58, 237, 0.25);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  /* Text Gradients */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #7C3AED 0%, #2563EB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-secondary {
+    background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #7C3AED 0%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Animations */
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px) scale(1);
+    }
+
+    50% {
+      transform: translateY(-15px) scale(1.03);
+    }
+  }
+
+  @keyframes pulse-glow {
+
+    0%,
+    100% {
+      opacity: 0.5;
+      filter: blur(120px) saturate(1.3);
+    }
+
+    50% {
+      opacity: 0.85;
+      filter: blur(90px) saturate(2);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 8s ease-in-out infinite;
+  }
+}
+
+@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif
+  }
+
+  :root {
+    /* Base theme colors */
+    --background: #f8fafc;
+    --foreground: #0f172a;
+    --card: rgba(255, 255, 255, 0.85);
+    --card-foreground: #0f172a;
+    --popover: rgba(255, 255, 255, 0.95);
+    --popover-foreground: #0f172a;
+    --primary: #7c3aed;
+    --primary-foreground: #ffffff;
+    --secondary: #2563eb;
+    --secondary-foreground: #ffffff;
+    --accent: #06b6d4;
+    --accent-foreground: #0f172a;
+    --success: #22c55e;
+    --success-foreground: #ffffff;
+    --warning: #f59e0b;
+    --warning-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(15, 23, 42, 0.08);
+    --input: rgba(15, 23, 42, 0.06);
+    --ring: #7c3aed;
+    --chart-1: #7c3aed;
+    --chart-2: #2563eb;
+    --chart-3: #06b6d4;
+    --chart-4: #f59e0b;
+    --chart-5: #22c55e;
+    --radius: 0.75rem;
+    --sidebar: rgba(255, 255, 255, 0.85);
+    --sidebar-foreground: #0f172a;
+    --sidebar-primary: #7c3aed;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #2563eb;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: rgba(15, 23, 42, 0.08);
+    --sidebar-ring: #7c3aed;
+
+    /* Dynamic overrides for standard tailwind variables */
+    --white-override: rgba(255, 255, 255, 0.85);
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+    --slate-950: #020617;
+
+    --indigo-50: #f5f3ff;
+    --indigo-100: #ede9fe;
+    --indigo-200: #ddd6fe;
+    --indigo-300: #c4b5fd;
+    --indigo-400: #a78bfa;
+    --indigo-500: #7c3aed;
+    --indigo-600: #6d28d9;
+    --indigo-700: #5b21b6;
+    --indigo-800: #4c1d95;
+    --indigo-900: #2e1065;
+    --indigo-950: #1e1b4b;
+
+    /* Map pink -> clean cyber cyan */
+    --pink-50: #ecfeff;
+    --pink-100: #cffafe;
+    --pink-200: #a5f3fc;
+    --pink-300: #67e8f9;
+    --pink-400: #22d3ee;
+    --pink-500: #06b6d4;
+    --pink-600: #0891b2;
+    --pink-700: #0e7490;
+    --pink-800: #155e75;
+    --pink-900: #164e63;
+    --pink-950: #083344;
+
+    /* Map fuchsia -> clean developer blue */
+    --fuchsia-50: #eff6ff;
+    --fuchsia-100: #dbeafe;
+    --fuchsia-200: #bfdbfe;
+    --fuchsia-300: #93c5fd;
+    --fuchsia-400: #60a5fa;
+    --fuchsia-500: #2563eb;
+    --fuchsia-600: #1d4ed8;
+    --fuchsia-700: #1e40af;
+    --fuchsia-800: #1e3a8a;
+    --fuchsia-900: #172554;
+    --fuchsia-950: #0f172a;
+
+    /* Map rose -> bold developer red/danger */
+    --rose-50: #fef2f2;
+    --rose-100: #fee2e2;
+    --rose-200: #fecaca;
+    --rose-300: #fca5a5;
+    --rose-400: #f87171;
+    --rose-500: #ef4444;
+    --rose-600: #dc2626;
+    --rose-700: #b91c1c;
+    --rose-800: #991b1b;
+    --rose-900: #7f1d1d;
+    --rose-950: #450a0a;
+
+    /* Neon Shadow Custom variables (light mode) */
+    --shadow-sm: 0 2px 8px -1px rgba(37, 99, 235, 0.05), 0 1px 3px -1px rgba(124, 58, 237, 0.05);
+    --shadow-md: 0 8px 20px -4px rgba(37, 99, 235, 0.08), 0 4px 12px -2px rgba(124, 58, 237, 0.06);
+    --shadow-lg: 0 16px 36px -6px rgba(37, 99, 235, 0.12), 0 8px 20px -4px rgba(124, 58, 237, 0.08);
+    --shadow-xl: 0 24px 48px -8px rgba(37, 99, 235, 0.18), 0 12px 24px -4px rgba(124, 58, 237, 0.12);
+    --shadow-2xl: 0 32px 64px -12px rgba(37, 99, 235, 0.25), 0 16px 32px -6px rgba(124, 58, 237, 0.18);
+  }
+
+  .dark {
+    /* Base theme colors */
+    --background: #0f172a;
+    /* Deep Navy Background */
+    --foreground: #f8fafc;
+    --card: rgba(15, 23, 42, 0.75);
+    /* Dark Navy Glassmorphism Card */
+    --card-foreground: #e2e8f0;
+    --popover: rgba(15, 23, 42, 0.95);
+    --popover-foreground: #f8fafc;
+    --primary: #7c3aed;
+    --primary-foreground: #ffffff;
+    --secondary: #2563eb;
+    --secondary-foreground: #ffffff;
+    --accent: #06b6d4;
+    --accent-foreground: #0f172a;
+    --success: #22c55e;
+    --success-foreground: #ffffff;
+    --warning: #f59e0b;
+    --warning-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(255, 255, 255, 0.08);
+    --input: rgba(255, 255, 255, 0.06);
+    --ring: #06b6d4;
+    /* Electric Cyan active focus ring */
+    --chart-1: #7c3aed;
+    --chart-2: #2563eb;
+    --chart-3: #06b6d4;
+    --chart-4: #f59e0b;
+    --chart-5: #22c55e;
+    --sidebar: rgba(15, 23, 42, 0.75);
+    --sidebar-foreground: #e2e8f0;
+    --sidebar-primary: #7c3aed;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #2563eb;
+    --sidebar-accent-foreground: #ffffff;
+    --sidebar-border: rgba(255, 255, 255, 0.08);
+    --sidebar-ring: #06b6d4;
+
+    /* Dynamic overrides for standard tailwind variables (dark mode) */
+    --white-override: rgba(15, 23, 42, 0.75);
+    --slate-50: #1e293b;
+    --slate-100: #1e293b;
+    --slate-200: rgba(255, 255, 255, 0.08);
+    --slate-300: rgba(255, 255, 255, 0.15);
+    --slate-400: #94a3b8;
+    --slate-500: #cbd5e1;
+    --slate-600: #e2e8f0;
+    --slate-700: #f1f5f9;
+    --slate-800: rgba(255, 255, 255, 0.08);
+    --slate-900: rgba(15, 23, 42, 0.75);
+    --slate-950: #0f172a;
+
+    --indigo-50: #0f172a;
+    --indigo-100: #1e293b;
+    --indigo-200: #2e3b55;
+    --indigo-300: #43557a;
+    --indigo-400: #2563eb;
+    --indigo-500: #2563eb;
+    --indigo-600: #3b82f6;
+    --indigo-700: #60a5fa;
+    --indigo-800: #93c5fd;
+    --indigo-900: #bfdbfe;
+    --indigo-950: #eff6ff;
+
+    /* Pink variables -> mapped to cyan accents */
+    --pink-50: #083344;
+    --pink-100: #164e63;
+    --pink-200: #155e75;
+    --pink-300: #0e7490;
+    --pink-400: #0891b2;
+    --pink-500: #06b6d4;
+    --pink-600: #22d3ee;
+    --pink-700: #67e8f9;
+    --pink-800: #a5f3fc;
+    --pink-900: #cffafe;
+    --pink-950: #ecfeff;
+
+    /* Fuchsia variables -> mapped to royal blue */
+    --fuchsia-50: #0f172a;
+    --fuchsia-100: #172554;
+    --fuchsia-200: #1e3a8a;
+    --fuchsia-300: #1e40af;
+    --fuchsia-400: #1d4ed8;
+    --fuchsia-500: #2563eb;
+    --fuchsia-600: #3b82f6;
+    --fuchsia-700: #60a5fa;
+    --fuchsia-800: #93c5fd;
+    --fuchsia-900: #bfdbfe;
+    --fuchsia-950: #dbeafe;
+
+    /* Rose variables -> mapped to red danger */
+    --rose-50: #450a0a;
+    --rose-100: #7f1d1d;
+    --rose-200: #991b1b;
+    --rose-300: #b91c1c;
+    --rose-400: #dc2626;
+    --rose-500: #ef4444;
+    --rose-600: #f87171;
+    --rose-700: #fca5a5;
+    --rose-800: #fecaca;
+    --rose-900: #fee2e2;
+    --rose-950: #fef2f2;
+
+    /* Neon Shadow Custom variables (dark mode) */
+    --shadow-sm: 0 2px 8px -1px rgba(124, 58, 237, 0.15), 0 1px 3px -1px rgba(37, 99, 235, 0.15);
+    --shadow-md: 0 8px 24px -4px rgba(124, 58, 237, 0.25), 0 4px 12px -2px rgba(37, 99, 235, 0.25);
+    --shadow-lg: 0 16px 40px -6px rgba(124, 58, 237, 0.35), 0 8px 24px -4px rgba(37, 99, 235, 0.25);
+    --shadow-xl: 0 24px 50px -8px rgba(124, 58, 237, 0.45), 0 12px 30px -4px rgba(37, 99, 235, 0.35);
+    --shadow-2xl: 0 32px 70px -12px rgba(124, 58, 237, 0.55), 0 16px 40px -6px rgba(37, 99, 235, 0.45);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+      radial-gradient(circle at 88% 82%, rgba(6, 182, 212, 0.03) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(circle at 15% 15%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(37, 99, 235, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 55%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  /* ─── Route-Specific Page Background Redesigns ─── */
+
+  /* 1. Home Feed: Animated purple-blue gradient */
+  .root-layout-wrapper[data-pathname="/"] main {
+    background-image:
+      linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(6, 182, 212, 0.02) 100%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/"] main {
+    background-image:
+      radial-gradient(circle at 50% 10%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 10% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 2. Profile: Purple-blue gradient mesh background */
+  .root-layout-wrapper[data-pathname="/profile"] main,
+  .root-layout-wrapper[data-pathname^="/author/"] main {
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/profile"] main,
+  .dark .root-layout-wrapper[data-pathname^="/author/"] main {
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.16) 0%, transparent 60%),
+      radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 3. Dashboard: Creator-studio style gradient background */
+  .root-layout-wrapper[data-pathname="/dashboard"] main {
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] main {
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.18) 0%, transparent 55%),
+      radial-gradient(circle at 10% 90%, rgba(6, 182, 212, 0.1) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 4. Settings: Glassmorphism background with soft blue-purple glow */
+  .root-layout-wrapper[data-pathname="/settings"] main,
+  .root-layout-wrapper[data-pathname="/profile/edit"] main {
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/settings"] main,
+  .dark .root-layout-wrapper[data-pathname="/profile/edit"] main {
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 55%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 5. About: Creative colorful hero background */
+  .root-layout-wrapper[data-pathname="/about"] main {
+    background-image:
+      linear-gradient(120deg, rgba(37, 99, 235, 0.02) 0%, rgba(6, 182, 212, 0.02) 100%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/about"] main {
+    background-image:
+      linear-gradient(120deg, rgba(124, 58, 237, 0.12) 0%, rgba(37, 99, 235, 0.12) 50%, rgba(6, 182, 212, 0.08) 100%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 6. Trending: Purple, cyan, and blue accent background */
+  .root-layout-wrapper[data-pathname="/trending"] main {
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/trending"] main {
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 80% 30%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 80%, rgba(37, 99, 235, 0.12) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 7. Explore: Cyan-blue mesh background */
+  .root-layout-wrapper[data-pathname="/explore"] main {
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/explore"] main {
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 85%, rgba(37, 99, 235, 0.12) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 8. Contact: Cyan-blue accent background */
+  .root-layout-wrapper[data-pathname="/contact"] main {
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/contact"] main {
+    background-image:
+      radial-gradient(circle at 30% 20%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 70% 80%, rgba(37, 99, 235, 0.12) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 9. FAQ: Blue-purple accent background */
+  .root-layout-wrapper[data-pathname="/faq"] main {
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/faq"] main {
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  /* 10. Notifications: Soft purple-blue accent background */
+  .root-layout-wrapper[data-pathname="/notifications"] main {
+    background-image:
+      radial-gradient(circle at 50% 10%, rgba(37, 99, 235, 0.03) 0%, transparent 40%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/notifications"] main {
+    background-image:
+      radial-gradient(circle at 50% 10%, rgba(124, 58, 237, 0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(37, 99, 235, 0.12) 0%, transparent 45%),
+      linear-gradient(to bottom, var(--background), var(--background));
+  }
+
+  @keyframes gradient-flow {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  /* ─── Gen-Z Card Redesigns (Glassmorphism, Gradient Borders & Neon Glow Hover) ─── */
+  .glass-card,
+  div.rounded-3xl[class*="bg-white"][class*="border-"],
+  div.rounded-2xl[class*="bg-white"][class*="border-"],
+  div.rounded-3xl[class*="bg-white/"][class*="border-"],
+  div.rounded-2xl[class*="bg-white/"][class*="border-"] {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .dark .glass-card,
+  .dark div.rounded-3xl[class*="bg-slate-900"][class*="border-"],
+  .dark div.rounded-2xl[class*="bg-slate-900"][class*="border-"],
+  .dark div.rounded-3xl[class*="bg-slate-900/"][class*="border-"],
+  .dark div.rounded-2xl[class*="bg-slate-900/"][class*="border-"] {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Hover effect: lift translateY(-4px), shadow increase, subtle glow */
+  .glass-card:not(.no-hover):hover,
+  .glass-card-hover:not(.no-hover):hover,
+  div.rounded-3xl[class*="bg-white"][class*="border-"]:not(.no-hover):hover,
+  div.rounded-2xl[class*="bg-white"][class*="border-"]:not(.no-hover):hover,
+  div.rounded-3xl[class*="bg-white/"][class*="border-"]:not(.no-hover):hover,
+  div.rounded-2xl[class*="bg-white/"][class*="border-"]:not(.no-hover):hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    border-color: rgba(124, 58, 237, 0.25) !important;
+    box-shadow: var(--shadow-xl), 0 0 20px rgba(124, 58, 237, 0.15) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  .dark .glass-card:not(.no-hover):hover,
+  .dark .glass-card-hover:not(.no-hover):hover,
+  .dark div.rounded-3xl[class*="bg-slate-900"][class*="border-"]:not(.no-hover):hover,
+  .dark div.rounded-2xl[class*="bg-slate-900"][class*="border-"]:not(.no-hover):hover,
+  .dark div.rounded-3xl[class*="bg-slate-900/"][class*="border-"]:not(.no-hover):hover,
+  .dark div.rounded-2xl[class*="bg-slate-900/"][class*="border-"]:not(.no-hover):hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    border-color: rgba(6, 182, 212, 0.35) !important;
+    /* Cyber cyan border on hover */
+    box-shadow: var(--shadow-xl), 0 0 25px rgba(124, 58, 237, 0.3) !important;
+    /* Purple-blue glow only */
+    background: rgba(21, 28, 47, 0.85) !important;
+    /* Slightly more solid navy glass on hover */
+  }
+
+  /* Buttons hover scale animation: 1.03 */
+  button:not(.no-hover),
+  a.px-5.py-2.rounded-full:not(.no-hover),
+  a[class*="bg-indigo-"]:not(.no-hover),
+  a[class*="bg-gradient-"]:not(.no-hover),
+  button[class*="bg-"]:not(.no-hover) {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  button:not(.no-hover):hover,
+  a.px-5.py-2.rounded-full:not(.no-hover):hover,
+  a[class*="bg-indigo-"]:not(.no-hover):hover,
+  a[class*="bg-gradient-"]:not(.no-hover):hover,
+  button[class*="bg-"]:not(.no-hover):hover {
+    transform: scale(1.03) !important;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.25) !important;
+  }
+
+  button:not(.no-hover):active,
+  a.px-5.py-2.rounded-full:not(.no-hover):active,
+  a[class*="bg-indigo-"]:not(.no-hover):active,
+  a[class*="bg-gradient-"]:not(.no-hover):active,
+  button[class*="bg-"]:not(.no-hover):active {
+    transform: scale(0.97) !important;
+  }
+
+  /* Icons: micro interactions */
+  a:hover svg,
+  button:hover svg,
+  div:hover>svg,
+  .group:hover svg {
+    transform: scale(1.12) rotate(3deg);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  }
+
+  /* ─── Profile Page Visual Upgrades (Creator Banner & Avatar Glow) ─── */
+  .root-layout-wrapper[data-pathname="/profile"] div.relative.rounded-3xl.border,
+  .root-layout-wrapper[data-pathname^="/author/"] div.relative.rounded-3xl.border {
+    padding-top: 140px !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/profile"] div.relative.rounded-3xl.border::before,
+  .root-layout-wrapper[data-pathname^="/author/"] div.relative.rounded-3xl.border::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 140px;
+    background: linear-gradient(135deg, #7C3AED 0%, #2563EB 50%, #06B6D4 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    z-index: 1;
+  }
+
+  .root-layout-wrapper[data-pathname="/profile"] div.shrink-0.flex.flex-col,
+  .root-layout-wrapper[data-pathname^="/author/"] div.shrink-0.flex.flex-col {
+    margin-top: -65px !important;
+    z-index: 10;
+    position: relative;
+  }
+
+  .root-layout-wrapper[data-pathname="/profile"] div.shrink-0.flex.flex-col div.ring-4,
+  .root-layout-wrapper[data-pathname^="/author/"] div.shrink-0.flex.flex-col div.ring-4 {
+    border-radius: 9999px !important;
+    overflow: hidden;
+    padding: 3px;
+    background: var(--background) !important;
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.5) !important;
+    border: 3px solid var(--background) !important;
+    display: inline-block;
+  }
+
+  .root-layout-wrapper[data-pathname="/profile"] div.shrink-0.flex.flex-col img,
+  .root-layout-wrapper[data-pathname^="/author/"] div.shrink-0.flex.flex-col img,
+  .root-layout-wrapper[data-pathname="/profile"] div.shrink-0.flex.flex-col div.rounded-2xl,
+  .root-layout-wrapper[data-pathname^="/author/"] div.shrink-0.flex.flex-col div.rounded-2xl {
+    border-radius: 9999px !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/profile"] div.flex-wrap.gap-4.mb-4>div,
+  .root-layout-wrapper[data-pathname^="/author/"] div.flex-wrap.gap-4.mb-4>div {
+    padding: 6px 14px !important;
+    border-radius: 9999px !important;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(37, 99, 235, 0.08) 100%) padding-box,
+      linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(37, 99, 235, 0.2) 100%) border-box !important;
+    border: 1px solid transparent !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/profile"] div.flex-wrap.gap-4.mb-4>div,
+  .dark .root-layout-wrapper[data-pathname^="/author/"] div.flex-wrap.gap-4.mb-4>div {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%) padding-box,
+      linear-gradient(135deg, rgba(124, 58, 237, 0.3) 0%, rgba(37, 99, 235, 0.3) 100%) border-box !important;
+  }
+
+  /* ─── Creator Dashboard Page Redesigns (Spotify Wrapped / Discord style) ─── */
+
+  /* Views Card: Blue/Indigo glow */
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(1) {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(124, 58, 237, 0.03) 100%) padding-box,
+      linear-gradient(135deg, rgba(37, 99, 235, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%) border-box !important;
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.08) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(1) {
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(37, 99, 235, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.2) !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(1):hover {
+    box-shadow: var(--shadow-xl), 0 0 25px rgba(37, 99, 235, 0.3) !important;
+  }
+
+  /* Likes Card: Purple/Blue glow */
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(2) {
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.03) 0%, rgba(37, 99, 235, 0.03) 100%) padding-box,
+      linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%) border-box !important;
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.08) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(2) {
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(124, 58, 237, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.2) !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(2):hover {
+    box-shadow: var(--shadow-xl), 0 0 25px rgba(124, 58, 237, 0.3) !important;
+  }
+
+  /* Comments Card: Cyan/Teal glow */
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(3) {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(37, 99, 235, 0.03) 100%) padding-box,
+      linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%) border-box !important;
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.08) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(3) {
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(6, 182, 212, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(6, 182, 212, 0.2) !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(3):hover {
+    box-shadow: var(--shadow-xl), 0 0 25px rgba(6, 182, 212, 0.3) !important;
+  }
+
+  /* Saved Card: Amber/Orange glow */
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(4) {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(249, 115, 22, 0.03) 100%) padding-box,
+      linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(249, 115, 22, 0.15) 100%) border-box !important;
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.08) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(4) {
+    background: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(245, 158, 11, 0.25) !important;
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.2) !important;
+  }
+
+  .root-layout-wrapper[data-pathname="/dashboard"] .metrics-grid>div:nth-child(4):hover {
+    box-shadow: var(--shadow-xl), 0 0 25px rgba(245, 158, 11, 0.3) !important;
+  }
+
+  /* Quick Info promo box styling */
+  .root-layout-wrapper[data-pathname="/dashboard"] div.bg-gradient-to-br.from-indigo-500.to-purple-600 {
+    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%) !important;
+    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  }
+
+  /* Social Stats mini-boxes styling */
+  .root-layout-wrapper[data-pathname="/dashboard"] div.grid-cols-2.gap-4.mt-4>div {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .dark .root-layout-wrapper[data-pathname="/dashboard"] div.grid-cols-2.gap-4.mt-4>div {
+    background: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  /* ─── Global Glow Blob Pink Overrides & Dashboard Rose icon redirection ─── */
+  .root-layout-wrapper .bg-pink-500\/15 {
+    background-color: rgba(6, 182, 212, 0.15) !important;
+  }
+
+  .dark .root-layout-wrapper .bg-pink-500\/10 {
+    background-color: rgba(6, 182, 212, 0.1) !important;
+  }
+
+  .root-layout-wrapper .bg-pink-500\/20 {
+    background-color: rgba(6, 182, 212, 0.2) !important;
+  }
+
+  .dark .root-layout-wrapper .bg-pink-500\/5 {
+    background-color: rgba(6, 182, 212, 0.05) !important;
+  }
+
+  /* Likes card Rose -> Purple redirection on dashboard */
+  .root-layout-wrapper[data-pathname="/dashboard"] .from-rose-500 {
+    --tw-gradient-from: #7c3aed !important;
+    --tw-gradient-to: #2563eb !important;
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+  }
+}
