@@ -2,13 +2,48 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { commentApi } from '../api/comment.api';
 import type { CommentResponse, CreateCommentRequest, BlogResponse } from '../types';
 
+export const buildCommentTree = (flatComments: CommentResponse[]): CommentResponse[] => {
+  const map = new Map<number, CommentResponse & { replies: CommentResponse[] }>();
+  
+  // First pass: create copies of all comments with an empty replies array
+  flatComments.forEach(comment => {
+    map.set(comment.id, {
+      ...comment,
+      replies: []
+    });
+  });
+  
+  const roots: CommentResponse[] = [];
+  
+  // Second pass: attach comments to their parent or add to roots
+  flatComments.forEach(comment => {
+    const mapped = map.get(comment.id)!;
+    if (comment.parentCommentId) {
+      const parent = map.get(comment.parentCommentId);
+      if (parent) {
+        parent.replies.push(mapped);
+      } else {
+        // If parent is not in the list (e.g. deleted), treat it as a root
+        roots.push(mapped);
+      }
+    } else {
+      roots.push(mapped);
+    }
+  });
+  
+  return roots;
+};
+
 export const useComments = (blogId: number) => {
   const queryClient = useQueryClient();
 
   // Query: Get comments for specific blog
   const commentsQuery = useQuery<CommentResponse[], Error>({
     queryKey: ['comments', blogId],
-    queryFn: () => commentApi.getByBlogId(blogId),
+    queryFn: async () => {
+      const flatComments = await commentApi.getByBlogId(blogId);
+      return buildCommentTree(flatComments);
+    },
     enabled: !!blogId,
   });
 

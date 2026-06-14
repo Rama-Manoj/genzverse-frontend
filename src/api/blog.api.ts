@@ -78,6 +78,17 @@ export const enrichBlog = (blog: any): BlogResponse => {
   };
 };
 
+export const sortBlogsNewestFirst = (blogs: BlogResponse[]): BlogResponse[] => {
+  return [...blogs].sort((a, b) => {
+    const timeA = new Date(a.createdAt).getTime();
+    const timeB = new Date(b.createdAt).getTime();
+    if (isNaN(timeA) || isNaN(timeB) || timeA === timeB) {
+      return b.id - a.id;
+    }
+    return timeB - timeA;
+  });
+};
+
 export const blogApi = {
   create: async (data: CreateBlogRequest): Promise<BlogResponse> => {
     const response = await apiClient.post<BlogResponse>('/api/blogs', data);
@@ -86,7 +97,7 @@ export const blogApi = {
 
   getAll: async (): Promise<BlogResponse[]> => {
     const response = await apiClient.get<BlogResponse[]>('/api/blogs');
-    return response.data.map(enrichBlog);
+    return sortBlogsNewestFirst(response.data.map(enrichBlog));
   },
 
   getById: async (id: number): Promise<BlogResponse> => {
@@ -112,7 +123,7 @@ export const blogApi = {
         sort: params.sort ?? 'desc',
       },
     });
-    return response.data.map(enrichBlog);
+    return sortBlogsNewestFirst(response.data.map(enrichBlog));
   },
 
   searchByContent: async (params: SearchParams): Promise<BlogResponse[]> => {
@@ -124,7 +135,7 @@ export const blogApi = {
         sort: params.sort ?? 'desc',
       },
     });
-    return response.data.map(enrichBlog);
+    return sortBlogsNewestFirst(response.data.map(enrichBlog));
   },
 
   getTrendingByViews: async (): Promise<BlogResponse[]> => {
@@ -154,12 +165,12 @@ export const blogApi = {
 
   getByCategory: async (categoryName: string): Promise<BlogResponse[]> => {
     const response = await apiClient.get<BlogResponse[]>(`/api/blogs/category/${categoryName}`);
-    return response.data.map(b => enrichBlog({ ...b, category: categoryName }));
+    return sortBlogsNewestFirst(response.data.map(b => enrichBlog({ ...b, category: categoryName })));
   },
 
   getByTag: async (tagName: string): Promise<BlogResponse[]> => {
     const response = await apiClient.get<BlogResponse[]>(`/api/blogs/tag/${tagName}`);
-    return response.data.map(b => {
+    return sortBlogsNewestFirst(response.data.map(b => {
       const enriched = enrichBlog(b);
       const tags = [...(enriched.tags || [])];
       const tagLower = tagName.toLowerCase();
@@ -167,7 +178,7 @@ export const blogApi = {
         tags.push(tagName);
       }
       return { ...enriched, tags };
-    });
+    }));
   },
 
   getBySlug: async (slug: string): Promise<BlogResponse> => {

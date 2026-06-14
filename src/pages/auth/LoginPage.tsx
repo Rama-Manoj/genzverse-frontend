@@ -7,7 +7,7 @@ import { useAuthMutations } from '../../hooks/useAuth';
 import { ROUTES } from '../../routes/routes';
 import { toast } from 'sonner';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Loader2, ArrowRight } from 'lucide-react';
+import { Lock, Mail, Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -17,6 +17,7 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export const LoginPage: React.FC = () => {
+  const [showPassword, setShowPassword] = React.useState(false);
   const { login, isLoggingIn } = useAuthMutations();
   const navigate = useNavigate();
   const location = useLocation();
@@ -95,26 +96,31 @@ export const LoginPage: React.FC = () => {
 
             {/* Password Field */}
             <div>
-              <div className="flex justify-between items-center mb-2">
+              <div className="mb-2">
                 <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Password
                 </label>
-                <Link
-                  to={ROUTES.FORGOT_PASSWORD}
-                  className="text-xs font-semibold text-indigo-500 hover:text-indigo-400 hover:underline"
-                >
-                  Forgot password?
-                </Link>
               </div>
               <div className="relative">
                 <input
                   {...register('password')}
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   disabled={isLoggingIn}
-                  className="w-full h-11 pl-10 pr-4 rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
+                  className="w-full h-11 pl-10 pr-10 rounded-xl border border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm"
                   placeholder="••••••••"
                 />
                 <Lock className="absolute left-3.5 top-3.5 h-4.5 w-4.5 text-slate-400" />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-2.5 h-6 w-6 bg-transparent border-0 text-slate-400 hover:text-indigo-500 dark:text-slate-500 dark:hover:text-indigo-400 transition-colors focus:outline-none flex items-center justify-center rounded-full hover:bg-slate-200/50 dark:hover:bg-slate-800/80"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
               {errors.password && (
                 <p className="mt-1.5 text-[11px] font-semibold text-rose-500">{errors.password.message}</p>

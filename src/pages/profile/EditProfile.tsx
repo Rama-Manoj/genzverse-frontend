@@ -711,21 +711,8 @@ export const EditProfile: React.FC = () => {
                   </div>
 
                   <div className="divide-y divide-slate-100 dark:divide-slate-800/80 space-y-4">
-                    {/* Toggle 1: Email */}
-                    <div className="flex items-center justify-between pt-4 first:pt-0">
-                      <div className="space-y-0.5 max-w-[80%]">
-                        <p className="text-xs font-bold text-slate-800 dark:text-slate-150">
-                          Email Notifications
-                        </p>
-                        <p className="text-[10px] text-slate-400 leading-normal">
-                          Receive weekly GenzVerse highlights and newsletter articles.
-                        </p>
-                      </div>
-                      <Switch checked={emailNotifications} onChange={setEmailNotifications} />
-                    </div>
-
                     {/* Toggle 2: Follows */}
-                    <div className="flex items-center justify-between pt-4">
+                    <div className="flex items-center justify-between pt-4 first:pt-0">
                       <div className="space-y-0.5 max-w-[80%]">
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-150">
                           Follow Alerts

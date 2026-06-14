@@ -27,7 +27,11 @@ export const profileApi = {
 
   getAuthorDetails: async (userId: number): Promise<AuthorProfileResponse> => {
     const response = await apiClient.get<AuthorProfileResponse>(`/api/authors/${userId}`);
-    return response.data;
+    const data = response.data;
+    if (data && Array.isArray(data.blogs)) {
+      data.blogs = [...data.blogs].sort((a, b) => b.id - a.id);
+    }
+    return data;
   },
 
   uploadFile: async (file: File): Promise<string> => {

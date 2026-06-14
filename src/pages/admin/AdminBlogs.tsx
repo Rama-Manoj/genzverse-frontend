@@ -28,7 +28,7 @@ export const AdminBlogs: React.FC = () => {
 
   // Sorting
   const [sortField, setSortField] = useState<'id' | 'title' | 'author' | 'views'>('id');
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
 
   const handleSort = (field: 'id' | 'title' | 'author' | 'views') => {
     if (sortField === field) {
