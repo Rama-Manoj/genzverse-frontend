@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 import type { InternalAxiosRequestConfig } from 'axios';
 import type { ErrorResponse } from '../types';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? '' : 'https://genzverse-backend.onrender.com/');
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://genzverse-backend.onrender.com/';
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,

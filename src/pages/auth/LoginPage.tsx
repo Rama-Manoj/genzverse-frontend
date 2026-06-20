@@ -96,10 +96,16 @@ export const LoginPage: React.FC = () => {
 
             {/* Password Field */}
             <div>
-              <div className="mb-2">
+              <div className="mb-2 flex items-center justify-between">
                 <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Password
                 </label>
+                <Link 
+                  to={ROUTES.FORGOT_PASSWORD} 
+                  className="text-xs font-bold text-indigo-500 hover:underline hover:text-indigo-400 transition-colors"
+                >
+                  Forgot Password?
+                </Link>
               </div>
               <div className="relative">
                 <input
