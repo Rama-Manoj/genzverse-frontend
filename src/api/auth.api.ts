@@ -21,6 +21,8 @@ export const authApi = {
   },
 
   verifyEmail: async (token: string): Promise<void> => {
-    await apiClient.post('/api/auth/verify-email', { token });
+    await apiClient.get(`/api/auth/verify-email?token=${token}`);
   },
+
+
 };
